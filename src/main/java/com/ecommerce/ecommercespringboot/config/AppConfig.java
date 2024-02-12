@@ -1,11 +1,10 @@
-package com.ecommerce.config;
-
-import java.util.Arrays;
-import java.util.Collections;
-
+package com.ecommerce.ecommercespringboot.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import java.util.Arrays;
+import java.util.Collections;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +16,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Configuration
+@EnableWebSecurity
 public class AppConfig {
 	
 	@SuppressWarnings("removal")
@@ -33,7 +33,7 @@ public class AppConfig {
 				
 				cfg.setAllowedOrigins(Arrays.asList(
 						"http://localhost:3000/",
-						"http://localhost:4200/"
+						"http://localhost:8080/"
 						));
 				cfg.setAllowedMethods(Collections.singletonList("*"));
 				cfg.setAllowCredentials(true);
@@ -51,5 +51,5 @@ public class AppConfig {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
+	
 }

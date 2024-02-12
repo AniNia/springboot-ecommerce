@@ -1,4 +1,4 @@
-package com.ecommerce.model;
+package com.ecommerce.ecommercespringboot.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

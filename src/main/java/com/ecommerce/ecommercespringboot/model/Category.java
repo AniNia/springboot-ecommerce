@@ -1,4 +1,4 @@
-package com.ecommerce.model;
+package com.ecommerce.ecommercespringboot.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
