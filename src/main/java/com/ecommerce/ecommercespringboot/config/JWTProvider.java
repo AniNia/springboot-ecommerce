@@ -1,5 +1,4 @@
-package com.ecommerce.config;
-
+package com.ecommerce.ecommercespringboot.config;
 import java.util.Date;
 
 import javax.crypto.SecretKey;
@@ -17,15 +16,19 @@ public class JWTProvider {
 	public String generateToken(Authentication auth) {
 		SecretKey key=Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
 		String token = Jwts.builder()
-                      .setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime()+846000000))
-                      .claim("email", auth.getName()).signWith(key).compact();
+				      .setSubject(auth.getName())
+                      .setIssuedAt(new Date())
+                      .setExpiration(new Date(new Date().getTime()+846000000))
+                      .claim("email", auth.getName())
+                      .signWith(key)
+                      .compact();
 		return token;
     }
 	
 	public String getEmailFromToken(String token) {
 		token = token.substring(7);
 		SecretKey key=Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
-		Claims claims = Jwts.parser().setSigningKey(key).build().parseClaimsJws(token).getBody();
+		Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
 		String email = String.valueOf(claims.get("email"));
 		return email;
 	}

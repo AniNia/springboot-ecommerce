@@ -1,4 +1,4 @@
-package com.ecommerce.config;
+package com.ecommerce.ecommercespringboot.config;
 
 import java.io.*;
 import java.util.*;
@@ -7,7 +7,6 @@ import javax.crypto.SecretKey;
 
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer.JwtConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -15,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.WeakKeyException;
@@ -35,7 +33,7 @@ public class JWTValidator extends OncePerRequestFilter {
 			jwt = jwt.substring(7);
 			try {
 				SecretKey key=Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
-				Claims claims = Jwts.parser().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+				Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(jwt).getBody();
 				
 				String email = String.valueOf(claims.get("email"));
 				String authorities = String.valueOf(claims.get("authorities"));
